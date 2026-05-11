@@ -3,20 +3,14 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D playerRigidbody2D;
     public BoxCollider2D feetCollider;
     public CapsuleCollider2D bodyCollider;
+    public Rigidbody2D playerRigidbody2D;
+    public Animator playerAnimator;
     private Vector2 moveInput;
-    private Animator playerAnimator;
-    private float playerSpeed = 10f;
-    private float jumpSpeed = 10f;
     private bool isMoving;
-
-    void Start()
-    {
-        playerRigidbody2D = GetComponent<Rigidbody2D>();
-        playerAnimator = GetComponent<Animator>();
-    }
+    private const float PlayerSpeed = 10f;
+    private const float JumpSpeed = 10f;
 
     void Update()
     {

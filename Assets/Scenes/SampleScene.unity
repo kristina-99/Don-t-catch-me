@@ -624,6 +624,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   feetCollider: {fileID: 1082863105}
   bodyCollider: {fileID: 1082863106}
+  playerRigidbody2D: {fileID: 1082863103}
+  playerAnimator: {fileID: 1082863099}
 --- !u!61 &1082863105
 BoxCollider2D:
   m_ObjectHideFlags: 0
