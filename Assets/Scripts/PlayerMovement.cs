@@ -28,13 +28,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if(feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            playerRigidbody2D.linearVelocity += new Vector2(0f,jumpSpeed);
+            playerRigidbody2D.linearVelocity += new Vector2(0f,JumpSpeed);
         }    
     }
 
     void Run()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * playerSpeed, playerRigidbody2D.linearVelocity.y);
+        Vector2 playerVelocity = new Vector2(moveInput.x * PlayerSpeed, playerRigidbody2D.linearVelocity.y);
         playerRigidbody2D.linearVelocity = playerVelocity;
 
         playerAnimator.SetBool("isRunning",isMoving);
