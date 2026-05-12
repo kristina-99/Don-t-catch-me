@@ -3,10 +3,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public PlayerManager playerManager;
+    public PlayerStats playerStats;
     public BoxCollider2D feetCollider;
     public CapsuleCollider2D bodyCollider;
     public Rigidbody2D playerRigidbody2D;
     public Animator playerAnimator;
+    private string currentWeapon = "Sword";
     private Vector2 moveInput;
     private bool isMoving;
     private const float PlayerSpeed = 10f;
@@ -24,12 +27,37 @@ public class PlayerMovement : MonoBehaviour
         moveInput = moveInputValue.Get<Vector2>();
     }
 
-    void OnJump(InputValue jumpInputValue)
+    void OnJump()
     {
         if(feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             playerRigidbody2D.linearVelocity += new Vector2(0f,JumpSpeed);
         }    
+    }
+
+    void OnSelectInventoryItem()
+    {
+        if(Input.GetKey("1"))
+        {
+            currentWeapon = "Sword";
+            playerStats.Damage = 10;
+        }
+        else if(Input.GetKey("2"))
+        {
+             if(playerManager.HasFlameThrower)
+             {
+                 currentWeapon = "Flamethrower";
+                 playerStats.Damage += 15;
+             }
+        }
+        else if(Input.GetKey("3"))
+        {
+             if(playerManager.HasKnife)
+             {
+                 currentWeapon = "Knife";
+                 playerStats.Damage += 40;
+             }
+        }
     }
 
     void Run()
