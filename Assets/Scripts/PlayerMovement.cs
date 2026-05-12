@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isMoving;
     private const float PlayerSpeed = 10f;
     private const float JumpSpeed = 10f;
+    private const int BasicDamage = 10;
+    private const int KnifeBuff = 15;
+    private const int FlamethrowerBuff = 45;
 
     void Update()
     {
@@ -37,26 +40,20 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSelectInventoryItem()
     {
-        if(Input.GetKey("1"))
+        if(Input.GetKey("1") && currentWeapon != "Sword")
         {
             currentWeapon = "Sword";
-            playerStats.Damage = 10;
+            playerStats.Damage = BasicDamage;
+            Debug.Log("Damage is:" + playerStats.Damage);
         }
         else if(Input.GetKey("2"))
         {
-             if(playerManager.HasFlameThrower)
-             {
-                 currentWeapon = "Flamethrower";
-                 playerStats.Damage += 15;
-             }
+
+            playerManager.changeWeapon(playerManager.HasFlameThrower, FlamethrowerBuff, "Flamethrower", ref currentWeapon);
         }
         else if(Input.GetKey("3"))
         {
-             if(playerManager.HasKnife)
-             {
-                 currentWeapon = "Knife";
-                 playerStats.Damage += 40;
-             }
+            playerManager.changeWeapon(playerManager.HasKnife, KnifeBuff, "Knife", ref currentWeapon);
         }
     }
 

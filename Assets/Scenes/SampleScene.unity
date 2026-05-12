@@ -1086,7 +1086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 961054349a655304ea0a1b8aefd21902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerManager: {fileID: 0}
+  playerManager: {fileID: 1082863109}
   playerStats: {fileID: 1082863108}
   feetCollider: {fileID: 1082863105}
   bodyCollider: {fileID: 1082863106}
@@ -1229,6 +1229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 400e2eeb0e0df8b40bfbc15ddd73a2f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  playerStats: {fileID: 1082863108}
 --- !u!1 &1170335285
 GameObject:
   m_ObjectHideFlags: 0
