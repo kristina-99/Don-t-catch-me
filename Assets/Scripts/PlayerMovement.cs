@@ -1,22 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerManager playerManager;
     public PlayerStats playerStats;
+    public ItemManager itemManager;
+    public KnifeItem knifeItem;
+    public FlamethrowerItem flamethrowerItem;
     public BoxCollider2D feetCollider;
     public CapsuleCollider2D bodyCollider;
     public Rigidbody2D playerRigidbody2D;
     public Animator playerAnimator;
-    private string currentWeapon = "Sword";
+    public Image tickKnife;
+    public Image tickSword;
+    public Image tickFlamethrower;
+    public string currentWeapon = "Sword";
     private Vector2 moveInput;
     private bool isMoving;
     private const float PlayerSpeed = 10f;
     private const float JumpSpeed = 10f;
     private const int BasicDamage = 10;
-    private const int KnifeBuff = 15;
-    private const int FlamethrowerBuff = 45;
 
     void Update()
     {
@@ -38,22 +43,37 @@ public class PlayerMovement : MonoBehaviour
         }    
     }
 
-    void OnSelectInventoryItem()
+    void OnUseItemSword()
     {
-        if(Input.GetKey("1") && currentWeapon != "Sword")
+        itemManager.DisableItemImages();
+        tickSword.enabled = true;
+        if(currentWeapon != "Sword")
         {
             currentWeapon = "Sword";
             playerStats.Damage = BasicDamage;
             Debug.Log("Damage is:" + playerStats.Damage);
         }
-        else if(Input.GetKey("2"))
-        {
+    }
 
-            playerManager.changeWeapon(playerManager.HasFlameThrower, FlamethrowerBuff, "Flamethrower", ref currentWeapon);
-        }
-        else if(Input.GetKey("3"))
+    void OnUseItemFlamethrower()
+    {
+        itemManager.DisableItemImages();
+        tickFlamethrower.enabled = true;
+        if(playerManager.HasFlameThrower && currentWeapon != "Flamethrower")
         {
-            playerManager.changeWeapon(playerManager.HasKnife, KnifeBuff, "Knife", ref currentWeapon);
+            flamethrowerItem.Equip();
+            Debug.Log("Damage is:" + playerStats.Damage);
+        }
+    }
+
+    void OnUseItemKnife()
+    {
+        itemManager.DisableItemImages();
+        tickKnife.enabled = true;
+        if(playerManager.HasKnife && currentWeapon != "Knife")
+        {
+            knifeItem.Equip();
+            Debug.Log("Damage is:" + playerStats.Damage);
         }
     }
 
