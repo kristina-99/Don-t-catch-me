@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Don-t-catch-me.slnx",
+    "dotnet.defaultSolution": "Don-t-catch-me1.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
