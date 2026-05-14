@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FlamethrowerItem : MonoBehaviour
+public class FlamethrowerItem : MonoBehaviour, IItem
 {
     public PlayerManager playerManager;
     public PlayerStats playerStats;

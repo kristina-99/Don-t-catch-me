@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KnifeItem : MonoBehaviour,IItem
+public class KnifeItem : MonoBehaviour, IItem
 {
     public PlayerManager playerManager;
     public PlayerStats playerStats;

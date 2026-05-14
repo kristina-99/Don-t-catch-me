@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    private const int BaseDamage = 10;
     private int healthPoints = 100;
     private int damage = 10;
-
-    private const int BaseDamage = 10;
+    
     public int Damage
     {
         get
@@ -33,7 +33,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    public void buffDamage(int buff)
+    public void BuffDamage(int buff)
     {
         Damage = BaseDamage + buff;
     }
