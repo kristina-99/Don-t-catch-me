@@ -8,5 +8,5 @@ public interface IItem
     void Equip();
 
     //void Use();
-    //to implement after the monster is added
+    //to implement after the monster is added1
 }
