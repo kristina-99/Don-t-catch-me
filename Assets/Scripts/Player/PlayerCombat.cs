@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -30,7 +31,7 @@ public class PlayerCombat : MonoBehaviour
 
     public void Attack()
     {
-        if(attackRange>=distanceToClosestEnemy)
+        if(attackRange>=distanceToClosestEnemy && closestEnemy != null)
         {
             closestEnemy.enemyStats.HealthPoints -= playerStats.Damage;
             Debug.Log("The player has attacked the enemy and now the enemy has " +  closestEnemy.enemyStats.HealthPoints + " left");
@@ -69,5 +70,6 @@ public class PlayerCombat : MonoBehaviour
     public void FinishDie()
     {
         Destroy(gameObject, DelayBeforeDeath);
+        SceneManager.LoadScene("SampleScene");
     }
 }

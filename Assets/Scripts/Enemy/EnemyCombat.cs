@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyCombat : MonoBehaviour
 {
@@ -67,5 +68,6 @@ public class EnemyCombat : MonoBehaviour
     public void FinishDie()
     {
         Destroy(gameObject, DelayBeforeDeath);
+        SceneManager.LoadScene("SampleScene");
     }
 }
