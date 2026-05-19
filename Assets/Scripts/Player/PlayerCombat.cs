@@ -4,14 +4,28 @@ public class PlayerCombat : MonoBehaviour
 {
     public PlayerStats playerStats;
     public Animator playerAnimator;
-    public Enemy closestEnemy;
+    public Enemy closestEnemy = null;
+    private const float attackRange = 10f;
+    private const float DelayBeforeDeath = 1.0f;
     private Enemy[] allEnemies;
     private float distanceToClosestEnemy;
-    private const float attackRange = 10f;
+
+    void Start()
+    {
+        allEnemies = GameObject.FindObjectsByType<Enemy>();
+    }
 
     void Update()
     {
-        FindClosestEnemy();
+        if(allEnemies.Length > 0)
+        {
+            FindClosestEnemy();
+        }
+
+        if(playerStats.HealthPoints <= 0)
+        {
+            Die();
+        }
     }
 
     public void Attack()
@@ -30,9 +44,9 @@ public class PlayerCombat : MonoBehaviour
 
     void FindClosestEnemy()
     {
+        allEnemies = GameObject.FindObjectsByType<Enemy>();
         distanceToClosestEnemy = Mathf.Infinity;
         closestEnemy = null;
-        allEnemies = GameObject.FindObjectsByType<Enemy>();
 
         foreach(Enemy currentEnemy in allEnemies)
         {
@@ -45,6 +59,15 @@ public class PlayerCombat : MonoBehaviour
             }
         }
 
-        Debug.DrawLine(this.transform.position, closestEnemy.transform.position);
+    }
+
+    public void Die()
+    {
+        playerAnimator.SetBool("isDying", true);
+    }
+
+    public void FinishDie()
+    {
+        Destroy(gameObject, DelayBeforeDeath);
     }
 }

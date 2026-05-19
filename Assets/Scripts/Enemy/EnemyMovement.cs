@@ -25,13 +25,13 @@ public class EnemyMovement : MonoBehaviour
     
         if(hasHorizontalSpeed  && collision.gameObject.layer != playerLayerIndex)
         {
-            enemySpeed = -enemySpeed;
             Flip();
         }
     }
 
-    void Flip()
+    public void Flip()
     {
+        enemySpeed = -enemySpeed;
         transform.localScale = new Vector2(Mathf.Sign(enemySpeed),1f);
     }
     
