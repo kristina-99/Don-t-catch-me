@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public PlayerManager playerManager;
     public PlayerStats playerStats;
+    public PlayerCombat playerCombat;
     public ItemManager itemManager;
     public KnifeItem knifeItem;
     public FlamethrowerItem flamethrowerItem;
@@ -16,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public Image tickKnife;
     public Image tickSword;
     public Image tickFlamethrower;
+
     public string currentWeapon = "Sword";
     private const float PlayerSpeed = 10f;
     private const float JumpSpeed = 10f;
     private const int BasicDamage = 10;
+    
     private Vector2 moveInput;
     private bool isMoving;
 
@@ -41,6 +44,12 @@ public class PlayerMovement : MonoBehaviour
         {
             playerRigidbody2D.linearVelocity += new Vector2(0f,JumpSpeed);
         }    
+    }
+
+    void OnAttack()
+    {
+        playerAnimator.SetBool("isAttacking", true);
+        playerCombat.Attack();
     }
 
     void OnUseItemSword()
@@ -87,9 +96,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Flip()
     {
-        if(isMoving)
+        bool hasHorizontalSpeed = Mathf.Abs(playerRigidbody2D.linearVelocity.x) > Mathf.Epsilon;
+        if (hasHorizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(playerRigidbody2D.linearVelocity.x),1f);
+            transform.localScale = new Vector2(Mathf.Sign(playerRigidbody2D.linearVelocity.x), 1f);
         }
     }
 

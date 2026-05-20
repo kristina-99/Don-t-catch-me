@@ -30,7 +30,7 @@ public class KnifeItem : MonoBehaviour, IItem
     public void Equip()
     {
         playerMovement.currentWeapon = "Knife";
-        playerStats.buffDamage(damageBuff);   
+        playerStats.BuffDamage(damageBuff);   
     }
 
 }

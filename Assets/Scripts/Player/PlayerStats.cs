@@ -1,11 +1,22 @@
+using TMPro;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI attackText;
+
     private const int BaseDamage = 10;
+    
     private int healthPoints = 100;
     private int damage = 10;
-    
+
+    void Start()
+    {
+        hpText.text = "HP: " + healthPoints;
+        attackText.text = "Attack: " + damage;
+    }
+
     public int Damage
     {
         get
@@ -17,6 +28,7 @@ public class PlayerStats : MonoBehaviour
             if(value > 0 && value <= 100)
             {
                 damage = value;
+                attackText.text = "Attack: " + damage;
             }
         }
     }
@@ -30,6 +42,7 @@ public class PlayerStats : MonoBehaviour
         set
         {
             healthPoints = value;
+            hpText.text = "HP: " + healthPoints;
         }
     }
 

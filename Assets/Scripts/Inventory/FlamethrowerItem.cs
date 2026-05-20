@@ -30,7 +30,7 @@ public class FlamethrowerItem : MonoBehaviour, IItem
     public void Equip()
     {
         playerMovement.currentWeapon = "Flamethrower";
-        playerStats.buffDamage(damageBuff);
+        playerStats.BuffDamage(damageBuff);
     }
 
 }

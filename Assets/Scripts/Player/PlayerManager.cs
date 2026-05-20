@@ -4,7 +4,7 @@ public class PlayerManager : MonoBehaviour
 {
     private bool hasKnife = false;
     private bool hasFlameThrower = false; 
-
+    
     public bool HasFlameThrower
     {
         get
