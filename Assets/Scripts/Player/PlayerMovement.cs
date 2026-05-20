@@ -17,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public Image tickKnife;
     public Image tickSword;
     public Image tickFlamethrower;
+
     public string currentWeapon = "Sword";
     private const float PlayerSpeed = 10f;
     private const float JumpSpeed = 10f;
     private const int BasicDamage = 10;
+    
     private Vector2 moveInput;
     private bool isMoving;
 

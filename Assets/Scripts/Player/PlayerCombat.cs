@@ -8,8 +8,10 @@ public class PlayerCombat : MonoBehaviour
     public ParticleSystem flamethrowerParticles;
     public Animator playerAnimator;
     public Enemy closestEnemy = null;
+
     private const float attackRange = 10f;
     private const float DelayBeforeDeath = 1.0f;
+    
     private Enemy[] allEnemies;
     private float distanceToClosestEnemy;
 

@@ -5,7 +5,9 @@ public class EnemyMovement : MonoBehaviour
     public Rigidbody2D rigidBody2D;
     public CapsuleCollider2D capsuleCollider2D;
     public Animator enemyAnimator;
+    
     private float enemySpeed = 1f;
+
     void Update()
     {
         if(enemyAnimator.GetBool("isWalking"))

@@ -10,9 +10,11 @@ public class EnemyCombat : MonoBehaviour
     public Animator enemyAnimator;
     public Rigidbody2D playerBody;
     public Rigidbody2D enemyBody;
+
     private const float AttackRange = 10f;
     private const float DelayBeforeDeath = 1.0f;
     private const float AttackFrequency = 1.0f;
+
     private float distanceToPlayer;
     private float timeSinceLastAttack = 0f;
 
@@ -42,7 +44,7 @@ public class EnemyCombat : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void TargetPlayer()
     {
         if(enemyBody.position.x > playerBody.position.x && enemyBody.transform.localScale.x > 0)
         {
@@ -51,7 +53,12 @@ public class EnemyCombat : MonoBehaviour
         else if(playerBody.position.x > enemyBody.position.x && enemyBody.transform.localScale.x < 0)
         {
             enemyMovement.Flip();
-        }
+        }   
+    }
+
+    public void Attack()
+    {
+        TargetPlayer();
         enemyAnimator.SetBool("isAttacking", true);
         playerStats.HealthPoints -= enemyStats.Damage; 
     }
