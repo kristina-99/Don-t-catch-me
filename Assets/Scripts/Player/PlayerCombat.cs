@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public class PlayerCombat : MonoBehaviour
 {
     public PlayerStats playerStats;
+    public PlayerMovement playerMovement;
+    public ParticleSystem flamethrowerParticles;
     public Animator playerAnimator;
     public Enemy closestEnemy = null;
     private const float attackRange = 10f;
@@ -31,6 +33,11 @@ public class PlayerCombat : MonoBehaviour
 
     public void Attack()
     {
+        if(playerMovement.currentWeapon == "Flamethrower")
+        {
+            flamethrowerParticles.Play();    
+        }
+
         if(attackRange>=distanceToClosestEnemy && closestEnemy != null)
         {
             closestEnemy.enemyStats.HealthPoints -= playerStats.Damage;
