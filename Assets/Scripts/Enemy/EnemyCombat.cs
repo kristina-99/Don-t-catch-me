@@ -12,6 +12,7 @@ public class EnemyCombat : MonoBehaviour
     public Rigidbody2D enemyBody;
     private const float AttackRange = 10f;
     private const float DelayBeforeDeath = 1.0f;
+    private const float AttackFrequency = 1.0f;
     private float distanceToPlayer;
     private float timeSinceLastAttack = 0f;
 
@@ -28,7 +29,7 @@ public class EnemyCombat : MonoBehaviour
         if(AttackRange >= distanceToPlayer)
         {
             enemyAnimator.SetBool("isWalking", false);  
-            if(timeSinceLastAttack > 1.0f && !enemyAnimator.GetBool("isAttacking"))
+            if(timeSinceLastAttack > AttackFrequency && !enemyAnimator.GetBool("isAttacking"))
             {
                 Attack();
                 Debug.Log("Enemy has attacked the player and the player has " + playerStats.HealthPoints + " healthpoints now");

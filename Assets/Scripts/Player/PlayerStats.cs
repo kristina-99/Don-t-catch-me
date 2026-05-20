@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI attackText;
     private const int BaseDamage = 10;
     private int healthPoints = 100;
     private int damage = 10;
-    
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI attackText;
 
     void Start()
     {
