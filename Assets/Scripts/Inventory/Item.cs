@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class Item : MonoBehaviour, IItem
 {
     public WeaponType weaponType;
     public string displayName;
     public int damageBuff;
 
-    private WeaponData weaponData;
-
-    private void Awake()
+    public void PickUp(PlayerInventory inventory)
     {
-        weaponData = new WeaponData(displayName, weaponType, damageBuff);
+        inventory.Collect(new WeaponData(displayName, weaponType, damageBuff));
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,7 +25,6 @@ public class WeaponPickup : MonoBehaviour
             return;
         }
 
-        inventory.Collect(weaponData);
-        Destroy(gameObject);
+        PickUp(inventory);
     }
 }

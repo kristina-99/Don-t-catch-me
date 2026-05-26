@@ -868,9 +868,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 316581694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcbf9fa4b5abd4b0596981d6296a1826, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e05785044c2c425ebc3842e2bca370c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
+  m_EditorClassIdentifier: Assembly-CSharp::Item
   weaponType: 1
   displayName: Knife
   damageBuff: 15
@@ -6306,7 +6306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &784900732
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6733,6 +6733,7 @@ GameObject:
   - component: {fileID: 1082863112}
   - component: {fileID: 1082863113}
   - component: {fileID: 1082863114}
+  - component: {fileID: 1082863115}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -7021,7 +7022,8 @@ MonoBehaviour:
   playerInventory: {fileID: 1082863113}
   playerAnimator: {fileID: 1082863099}
   flamethrowerParticles: {fileID: 719558714}
-  cachedEnemies: []
+  cachedEnemies:
+  - {fileID: 1680079185}
 --- !u!114 &1082863113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7048,6 +7050,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movement: {fileID: 1082863111}
   combat: {fileID: 1082863112}
+  inventory: {fileID: 1082863113}
+--- !u!114 &1082863115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082863098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 400e2eeb0e0df8b40bfbc15ddd73a2f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
+  movement: {fileID: 1082863111}
+  combat: {fileID: 1082863112}
+  stats: {fileID: 1082863108}
   inventory: {fileID: 1082863113}
 --- !u!1 &1170335285
 GameObject:
@@ -10438,7 +10456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1173437091
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16892,7 +16910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   rigidBody2D: {fileID: 1680079180}
   enemyAnimator: {fileID: 1680079178}
-  feetCollider: {fileID: 0}
+  feetCollider: {fileID: 1680079183}
 --- !u!61 &1680079183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17179,12 +17197,11 @@ MonoBehaviour:
   hpText: {fileID: 1248791613}
   attackText: {fileID: 1871029499}
   swordSlotIndicator: {fileID: 1013041128}
-  knifeSlotIndicator: {fileID: 814314271}
-  flamethrowerSlotIndicator: {fileID: 1701187205}
+  knifeSlotIndicator: {fileID: 309143325}
+  flamethrowerSlotIndicator: {fileID: 1750121089}
   knifeLockImage: {fileID: 237304482}
   flamethrowerLockImage: {fileID: 71814730}
-  playerStats: {fileID: 1082863108}
-  playerInventory: {fileID: 1082863113}
+  playerManager: {fileID: 1082863115}
 --- !u!4 &1826450588
 Transform:
   m_ObjectHideFlags: 0
@@ -17368,8 +17385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869f0e273da5245ac865c7ba2cecc3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerStats: {fileID: 1082863108}
-  enemyCombat: {fileID: 0}
+  playerManager: {fileID: 1082863115}
+  enemyCombat: {fileID: 1680079186}
   winScreen: {fileID: 1173437094}
   gameOverScreen: {fileID: 784900733}
 --- !u!4 &1909879216
@@ -17640,9 +17657,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1952446638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcbf9fa4b5abd4b0596981d6296a1826, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e05785044c2c425ebc3842e2bca370c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponPickup
+  m_EditorClassIdentifier: Assembly-CSharp::Item
   weaponType: 2
   displayName: Flamethrower
   damageBuff: 40

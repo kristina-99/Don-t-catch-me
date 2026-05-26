@@ -11,19 +11,18 @@ public class PlayerHUD : MonoBehaviour
     public Image flamethrowerSlotIndicator;
     public Image knifeLockImage;
     public Image flamethrowerLockImage;
-    public PlayerStats playerStats;
-    public PlayerInventory playerInventory;
+    public PlayerManager playerManager;
 
     private void Start()
     {
-        playerStats.OnHealthChanged += UpdateHealthDisplay;
-        playerStats.OnDamageChanged += UpdateDamageDisplay;
-        playerInventory.OnWeaponChanged += UpdateWeaponSlotDisplay;
-        playerInventory.OnWeaponCollected += UpdateWeaponLockDisplay;
+        playerManager.stats.OnHealthChanged += UpdateHealthDisplay;
+        playerManager.stats.OnDamageChanged += UpdateDamageDisplay;
+        playerManager.inventory.OnWeaponChanged += UpdateWeaponSlotDisplay;
+        playerManager.inventory.OnWeaponCollected += UpdateWeaponLockDisplay;
 
-        UpdateHealthDisplay(playerStats.HealthPoints);
-        UpdateDamageDisplay(playerStats.Damage);
-        UpdateWeaponSlotDisplay(playerInventory.EquippedWeapon);
+        UpdateHealthDisplay(playerManager.stats.HealthPoints);
+        UpdateDamageDisplay(playerManager.stats.Damage);
+        UpdateWeaponSlotDisplay(playerManager.inventory.EquippedWeapon);
     }
 
     private void UpdateHealthDisplay(int healthPoints)

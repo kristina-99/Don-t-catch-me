@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class EnemyBrain : MonoBehaviour
 {
-    private enum EnemyState { Patrol, Chase, Attack }
-
     public EnemyMovement movement;
     public EnemyCombat combat;
     public EnemyStats enemyStats;
     public Transform playerTransform;
+
+    private enum EnemyState { Patrol, Chase, Attack }
 
     private const float DetectionRadiusSquared = 64f;
     private const float AttackRadiusSquared = 4f;

@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public PlayerStats playerStats;
+    public PlayerManager playerManager;
     public EnemyCombat enemyCombat;
     public WinScreen winScreen;
     public GameOverScreen gameOverScreen;
@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        playerStats.OnDied += HandlePlayerDied;
+        playerManager.stats.OnDied += HandlePlayerDied;
         enemyCombat.OnFinishedDying += HandleEnemyDied;
     }
 
