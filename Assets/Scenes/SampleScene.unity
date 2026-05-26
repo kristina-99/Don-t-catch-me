@@ -16859,7 +16859,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1680079175}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
@@ -16876,7 +16876,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1680079182
 MonoBehaviour:
@@ -16892,6 +16892,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   rigidBody2D: {fileID: 1680079180}
   enemyAnimator: {fileID: 1680079178}
+  feetCollider: {fileID: 0}
 --- !u!61 &1680079183
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17368,7 +17369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   playerStats: {fileID: 1082863108}
-  enemyStats: {fileID: 1680079184}
+  enemyCombat: {fileID: 0}
   winScreen: {fileID: 1173437094}
   gameOverScreen: {fileID: 784900733}
 --- !u!4 &1909879216
