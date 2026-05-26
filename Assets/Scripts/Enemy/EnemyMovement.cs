@@ -14,14 +14,16 @@ public class EnemyMovement : MonoBehaviour
     private const float ChaseSpeed = 2f;
     private const float JumpClearance = 0.4f;
     private const float TileSize = 1f;
-    private const float LookAheadDistance = 2f;
+    private const float LookAheadDistance = 1.5f;
     private const int MaxJumpableTiles = 2;
 
-    public void Patrol()
+    public void PatrolTo(Vector2 targetPosition)
     {
         enemyAnimator.SetBool("isWalking", true);
+        float direction = Mathf.Sign(targetPosition.x - transform.position.x);
+        transform.localScale = new Vector2(direction, 1f);
         TryJumpAhead();
-        rigidBody2D.linearVelocity = new Vector2(FacingDirection * PatrolSpeed, GetYVelocity());
+        rigidBody2D.linearVelocity = new Vector2(direction * PatrolSpeed, GetYVelocity());
     }
 
     public void MoveTo(Vector2 targetPosition)

@@ -1,23 +1,29 @@
 using UnityEngine;
 
+public enum EnemyState { Patrol, Chase, Attack }
+
 public class EnemyBrain : MonoBehaviour
 {
     public EnemyMovement movement;
     public EnemyCombat combat;
     public EnemyStats enemyStats;
     public Transform playerTransform;
+    public Transform patrolPointA;
+    public Transform patrolPointB;
 
-    private enum EnemyState { Patrol, Chase, Attack }
+    public EnemyState currentState;
 
     private const float DetectionRadiusSquared = 64f;
     private const float AttackRadiusSquared = 4f;
+    private const float PatrolPointReachThresholdSquared = 0.25f;
 
-    private EnemyState currentState;
+    private Transform currentPatrolTarget;
     private bool isDead;
 
     private void Start()
     {
         currentState = EnemyState.Patrol;
+        currentPatrolTarget = patrolPointA;
         enemyStats.OnDied += HandleDied;
     }
 
@@ -57,7 +63,7 @@ public class EnemyBrain : MonoBehaviour
     {
         if (currentState == EnemyState.Patrol)
         {
-            movement.Patrol();
+            AdvancePatrol();
         }
         else if (currentState == EnemyState.Chase)
         {
@@ -67,6 +73,24 @@ public class EnemyBrain : MonoBehaviour
         {
             movement.Stop();
             combat.TryAttack();
+        }
+    }
+
+    private void AdvancePatrol()
+    {
+        movement.PatrolTo(currentPatrolTarget.position);
+
+        Vector2 toTarget = currentPatrolTarget.position - transform.position;
+        if (toTarget.sqrMagnitude < PatrolPointReachThresholdSquared)
+        {
+            if (currentPatrolTarget == patrolPointA)
+            {
+                currentPatrolTarget = patrolPointB;
+            }
+            else
+            {
+                currentPatrolTarget = patrolPointA;
+            }
         }
     }
 
