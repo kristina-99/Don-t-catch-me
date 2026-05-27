@@ -1,100 +1,43 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerManager playerManager;
-    public PlayerStats playerStats;
-    public PlayerCombat playerCombat;
-    public ItemManager itemManager;
-    public KnifeItem knifeItem;
-    public FlamethrowerItem flamethrowerItem;
-    public BoxCollider2D feetCollider;
-    public CapsuleCollider2D bodyCollider;
     public Rigidbody2D playerRigidbody2D;
+    public BoxCollider2D feetCollider;
     public Animator playerAnimator;
-    public Image tickKnife;
-    public Image tickSword;
-    public Image tickFlamethrower;
 
-    public string currentWeapon = "Sword";
     private const float PlayerSpeed = 10f;
     private const float JumpSpeed = 10f;
-    private const int BasicDamage = 10;
-    
-    private Vector2 moveInput;
-    private bool isMoving;
 
-    void Update()
+    private Vector2 moveInput;
+
+    private void Update()
     {
-        isMoving = Mathf.Abs(playerRigidbody2D.linearVelocity.x) > Mathf.Epsilon;
         Run();
         Flip();
     }
 
-    void OnMove(InputValue moveInputValue)
+    public void SetMoveInput(Vector2 input)
     {
-        moveInput = moveInputValue.Get<Vector2>();
+        moveInput = input;
     }
 
-    void OnJump()
+    public void Jump()
     {
-        if(feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
+        if (feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
-            playerRigidbody2D.linearVelocity += new Vector2(0f,JumpSpeed);
-        }    
-    }
-
-    void OnAttack()
-    {
-        playerAnimator.SetBool("isAttacking", true);
-        playerCombat.Attack();
-    }
-
-    void OnUseItemSword()
-    {
-        itemManager.DisableItemImages();
-        tickSword.enabled = true;
-        if(currentWeapon != "Sword")
-        {
-            currentWeapon = "Sword";
-            playerStats.Damage = BasicDamage;
-            Debug.Log("Damage is:" + playerStats.Damage);
+            playerRigidbody2D.linearVelocity += new Vector2(0f, JumpSpeed);
         }
     }
 
-    void OnUseItemFlamethrower()
-    {
-        itemManager.DisableItemImages();
-        tickFlamethrower.enabled = true;
-        if(playerManager.HasFlameThrower && currentWeapon != "Flamethrower")
-        {
-            flamethrowerItem.Equip();
-            Debug.Log("Damage is:" + playerStats.Damage);
-        }
-    }
-
-    void OnUseItemKnife()
-    {
-        itemManager.DisableItemImages();
-        tickKnife.enabled = true;
-        if(playerManager.HasKnife && currentWeapon != "Knife")
-        {
-            knifeItem.Equip();
-            Debug.Log("Damage is:" + playerStats.Damage);
-        }
-    }
-
-    void Run()
+    private void Run()
     {
         Vector2 playerVelocity = new Vector2(moveInput.x * PlayerSpeed, playerRigidbody2D.linearVelocity.y);
         playerRigidbody2D.linearVelocity = playerVelocity;
-
-        playerAnimator.SetBool("isRunning",isMoving);
+        playerAnimator.SetBool("isRunning", Mathf.Abs(playerRigidbody2D.linearVelocity.x) > Mathf.Epsilon);
     }
 
-    void Flip()
+    private void Flip()
     {
         bool hasHorizontalSpeed = Mathf.Abs(playerRigidbody2D.linearVelocity.x) > Mathf.Epsilon;
         if (hasHorizontalSpeed)
@@ -102,5 +45,4 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(Mathf.Sign(playerRigidbody2D.linearVelocity.x), 1f);
         }
     }
-
 }

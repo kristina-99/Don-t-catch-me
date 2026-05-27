@@ -1,50 +1,25 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
     public PlayerStats playerStats;
-    public PlayerMovement playerMovement;
-    public ParticleSystem flamethrowerParticles;
+    public PlayerInventory playerInventory;
     public Animator playerAnimator;
-    public Enemy closestEnemy = null;
+    public ParticleSystem flamethrowerParticles;
+    public Enemy[] cachedEnemies;
 
-    private const float attackRange = 10f;
-    private const float DelayBeforeDeath = 1.0f;
-    
-    private Enemy[] allEnemies;
-    private float distanceToClosestEnemy;
+    private const float AttackRangeSquared = 100f;
 
-    void Start()
+    private void Start()
     {
-        allEnemies = GameObject.FindObjectsByType<Enemy>();
-    }
-
-    void Update()
-    {
-        if(allEnemies.Length > 0)
-        {
-            FindClosestEnemy();
-        }
-
-        if(playerStats.HealthPoints <= 0)
-        {
-            Die();
-        }
+        playerStats.OnDied += HandleDied;
     }
 
     public void Attack()
     {
-        if(playerMovement.currentWeapon == "Flamethrower")
-        {
-            flamethrowerParticles.Play();    
-        }
-
-        if(attackRange>=distanceToClosestEnemy && closestEnemy != null)
-        {
-            closestEnemy.enemyStats.HealthPoints -= playerStats.Damage;
-            Debug.Log("The player has attacked the enemy and now the enemy has " +  closestEnemy.enemyStats.HealthPoints + " left");
-        }
+        playerAnimator.SetBool("isAttacking", true);
+        PerformAttack();
     }
 
     public void FinishAttack()
@@ -52,33 +27,61 @@ public class PlayerCombat : MonoBehaviour
         playerAnimator.SetBool("isAttacking", false);
     }
 
-    void FindClosestEnemy()
+    public void FinishDie()
     {
-        allEnemies = GameObject.FindObjectsByType<Enemy>();
-        distanceToClosestEnemy = Mathf.Infinity;
-        closestEnemy = null;
-
-        foreach(Enemy currentEnemy in allEnemies)
-        {
-            float distanceToCurrentEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
-
-            if(distanceToClosestEnemy > distanceToCurrentEnemy)
-            {
-                distanceToClosestEnemy = distanceToCurrentEnemy;
-                closestEnemy = currentEnemy;
-            }
-        }
-
+        Destroy(gameObject);
     }
 
-    public void Die()
+    public void RemoveEnemy(Enemy enemy)
+    {
+        cachedEnemies = Array.FindAll(cachedEnemies, cachedEnemy => cachedEnemy != enemy);
+    }
+
+    private void PerformAttack()
+    {
+        if (playerInventory.EquippedWeapon.Type == WeaponType.Flamethrower && flamethrowerParticles != null)
+        {
+            flamethrowerParticles.Play();
+        }
+
+        Enemy closestEnemy = FindClosestEnemy();
+        if (closestEnemy == null)
+        {
+            return;
+        }
+
+        float distanceSquared = (closestEnemy.transform.position - transform.position).sqrMagnitude;
+        if (distanceSquared <= AttackRangeSquared)
+        {
+            closestEnemy.TakeDamage(playerStats.Damage);
+        }
+    }
+
+    private void HandleDied()
     {
         playerAnimator.SetBool("isDying", true);
     }
 
-    public void FinishDie()
+    private Enemy FindClosestEnemy()
     {
-        Destroy(gameObject, DelayBeforeDeath);
-        SceneManager.LoadScene("SampleScene");
+        Enemy closest = null;
+        float closestDistanceSquared = Mathf.Infinity;
+
+        foreach (Enemy enemy in cachedEnemies)
+        {
+            if (enemy == null)
+            {
+                continue;
+            }
+
+            float distanceSquared = (enemy.transform.position - transform.position).sqrMagnitude;
+            if (distanceSquared < closestDistanceSquared)
+            {
+                closestDistanceSquared = distanceSquared;
+                closest = enemy;
+            }
+        }
+
+        return closest;
     }
 }
